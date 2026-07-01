@@ -8,18 +8,7 @@ class Config:
     SECRET_KEY = os.getenv("SECRET_KEY")
 
     # Database
-    DATABASE_URL = os.getenv("DATABASE_URL")
-
-    if DATABASE_URL:
-        # SQLAlchemy menggunakan driver pymysql
-        SQLALCHEMY_DATABASE_URI = DATABASE_URL.replace(
-            "mysql://",
-            "mysql+pymysql://",
-            1
-        )
-    else:
-        raise RuntimeError("DATABASE_URL belum diatur.")
-
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Cloudinary
