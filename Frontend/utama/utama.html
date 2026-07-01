@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nico Saputra Nainggolan</title>
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        :root {
+            --bg: #f7f3ec;
+            --surface: #fffaf3;
+            --surface-2: #f0e7d8;
+            --text: #1f1a17;
+            --muted: #6f6358;
+            --accent: #b45309;
+            --accent-2: #7c2d12;
+            --line: rgba(124, 45, 18, 0.14);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(180, 83, 9, 0.12), transparent 30%),
+                radial-gradient(circle at top right, rgba(124, 45, 18, 0.10), transparent 25%),
+                linear-gradient(180deg, #fcfaf6 0%, var(--bg) 100%);
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(12px);
+            background: rgba(252, 250, 246, 0.82);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 0;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white;
+            display: grid;
+            place-items: center;
+            font-size: 0.9rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .login-link {
+            padding: 10px 16px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: white;
+        }
+
+        .hero {
+            padding: 72px 0 48px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 7vw, 5.6rem);
+            line-height: 0.95;
+            letter-spacing: -0.05em;
+            margin-bottom: 18px;
+        }
+
+        .hero p {
+            font-size: 1.08rem;
+            line-height: 1.8;
+            color: var(--muted);
+            max-width: 62ch;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 18px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: white;
+            font-weight: 700;
+        }
+
+        .button.primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white;
+            border-color: transparent;
+        }
+
+        .profile-card,
+        .section-card {
+            background: rgba(255, 250, 243, 0.88);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            box-shadow: 0 24px 60px rgba(73, 40, 17, 0.08);
+        }
+
+        .profile-card {
+            padding: 24px;
+        }
+
+        .portrait {
+            border-radius: 22px;
+            overflow: hidden;
+            aspect-ratio: 4 / 5;
+            background: linear-gradient(180deg, var(--surface-2), #f9ede0);
+            margin-bottom: 18px;
+            display: grid;
+            place-items: center;
+            color: var(--muted);
+            text-align: center;
+            border: 1px solid var(--line);
+        }
+
+        .portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .profile-meta h2 {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+
+        .profile-meta p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .chip {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: white;
+            border: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        section {
+            padding: 22px 0 56px;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .section-head h3 {
+            font-size: 2rem;
+            letter-spacing: -0.04em;
+        }
+
+        .section-head p {
+            color: var(--muted);
+            max-width: 58ch;
+            line-height: 1.7;
+        }
+
+        .grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .skills-grid {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+
+        .skill-card,
+        .experience-card,
+        .project-card {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+        }
+
+        .skill-card i,
+        .skill-icon {
+            display: inline-grid;
+            place-items: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(180, 83, 9, 0.16), rgba(124, 45, 18, 0.12));
+            margin-bottom: 14px;
+            font-style: normal;
+            font-weight: 700;
+            color: var(--accent-2);
+        }
+
+        .experience-grid,
+        .projects-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .experience-card h4,
+        .project-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .muted {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .project-image {
+            aspect-ratio: 16 / 10;
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            background: #efe5d6;
+            border: 1px solid var(--line);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .footer {
+            padding: 20px 0 44px;
+            color: var(--muted);
+            border-top: 1px solid var(--line);
+        }
+
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-head {
+                align-items: start;
+                flex-direction: column;
+            }
+        }
+
+
+        .contact{
+            padding:80px 0;
+        }
+
+        .contact .section-title{
+            text-align:center;
+            margin-bottom:45px;
+        }
+
+        .contact .section-title h2{
+            font-size:48px;
+            font-weight:700;
+            color:var(--text);
+            margin-bottom:12px;
+        }
+
+        .contact .section-title p{
+            max-width:650px;
+            margin:auto;
+            color:var(--muted);
+            line-height:1.8;
+        }
+
+        .contact-container{
+            max-width:700px;
+            margin:0 auto;
+        }
+
+        .contact-form{
+            display:flex;
+            flex-direction:column;
+            gap:20px;
+        }
+
+        .contact-form input,
+        .contact-form textarea{
+            width:100%;
+            padding:18px 22px;
+            border:1px solid #ddd;
+            border-radius:12px;
+            font-size:16px;
+            outline:none;
+            background:#fff;
+            transition:.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus{
+            border-color:var(--accent);
+            box-shadow:0 0 0 3px rgba(180,83,9,.15);
+        }
+
+        .contact-form textarea{
+            min-height:170px;
+            resize:vertical;
+        }
+
+        .contact-form button{
+            width:100%;
+            padding:18px;
+            border:none;
+            border-radius:50px;
+            background:linear-gradient(135deg,var(--accent),var(--accent-2));
+            color:#fff;
+            font-size:18px;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .contact-form button:hover{
+            transform:translateY(-2px);
+            box-shadow:0 10px 25px rgba(180,83,9,.25);
+        }
+
+        .contact .section-title{
+            width:100%;
+            text-align:center !important;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            margin-bottom:45px;
+        }
+
+        .contact .section-title h2{
+            width:100%;
+            text-align:center;
+            font-size:48px;
+            margin-bottom:15px;
+        }
+
+        .contact .section-title p{
+            width:100%;
+            max-width:650px;
+            margin:0 auto;
+            text-align:center;
+        }
+
+        .contact-title{
+            display:block !important;
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .contact-title h2{
+            font-size:2.5rem;
+            margin-bottom:12px;
+        }
+
+        .contact-title p{
+            max-width:650px;
+            margin:0 auto;
+        }
+
+        .social-section{
+            text-align:center;
+            padding:70px 0 30px;
+        }
+
+        .social-section h2{
+            font-size:2.2rem;
+            margin-bottom:10px;
+        }
+
+        .social-section p{
+            color:var(--muted);
+            margin-bottom:35px;
+        }
+
+        .social-icons{
+            display:flex;
+            justify-content:center;
+            gap:25px;
+        }
+
+        .social-icons a{
+            width:70px;
+            height:70px;
+            border-radius:18px;
+            background:#fff;
+            border:1px solid var(--line);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-decoration:none;
+            color:var(--accent);
+            font-size:30px;
+            transition:.3s;
+            box-shadow:0 5px 15px rgba(0,0,0,.08);
+        }
+
+        .social-icons a:hover{
+            background:linear-gradient(135deg,var(--accent),var(--accent-2));
+            color:white;
+            transform:translateY(-5px);
+        }
+
+        .footer{
+            text-align:center;
+            padding:35px 0;
+        }
+
+        .footer hr{
+            border:none;
+            border-top:1px solid rgba(0,0,0,.15);
+            width:80%;
+            margin:0 auto 25px;
+        }
+
+        .footer p{
+            color:#666;
+            font-size:15px;
+        }
+
+        .skill-icon{
+        width:70px;
+        height:70px;
+
+        margin:0 auto 20px;
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
+
+        border-radius:18px;
+
+        background:#eef5ff;
+    }
+
+    .skill-icon img{
+
+        width:48px;
+        height:48px;
+
+        object-fit:contain;
+
+    }
+    </style>
+</head>
+<body>
+    <header class="nav">
+        <div class="container nav-inner">
+            <a class="brand" href="/login" aria-label="Nico Saputra Nainggolan login">
+                <span class="brand-mark">N</span>
+                <span>Nico Saputra Nainggolan</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero" id="about">
+            <div class="hero-grid">
+                <div>
+                    <span class="eyebrow">Selamat Datang di Portfolio Website saya</span>
+                    <h1>Tentang Saya</h1>
+                    <p>
+                        {% if profile %}
+                        Halo! Saya <strong>{{ profile.nama_lengkap or profile.nama_panggilan }}</strong>,
+                        seorang mahasiswa {{ profile.program_studi }} di
+                        {{ profile.universitas }} yang memiliki minat dalam pengembangan
+                        website, desain antarmuka, dan teknologi informasi.
+                        Website ini merupakan portfolio pribadi yang berisi perjalanan,
+                        pengalaman, kemampuan, serta berbagai proyek yang telah saya kerjakan.
+                    {% else %}
+                        Selamat datang di website portfolio saya. Di sini Anda dapat melihat
+                        profil, kemampuan, pengalaman, serta berbagai proyek yang pernah saya kerjakan.
+                    {% endif %}
+                    </p>
+                </div>
+
+                <aside class="profile-card">
+                    <div class="portrait">
+                        {% if profile and profile.foto_profil %}
+                            <img src="{{ profile.foto_profil }}" alt="Foto profil {{ profile.nama_lengkap or profile.nama_panggilan }}">
+                        {% else %}
+                            <div>
+                                <strong>Foto Profil</strong>
+                                <p>Belum ada gambar tersimpan</p>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="profile-meta">
+                        <h2>{{ profile.nama_lengkap if profile and profile.nama_lengkap else 'Profil Belum Diisi' }}</h2>
+                        <p>
+                            {{ profile.universitas if profile and profile.universitas else 'Universitas belum tersedia' }}
+                            {% if profile and profile.program_studi %} · {{ profile.program_studi }}{% endif %}
+                        </p>
+                    </div>
+
+                    <div class="chips">
+                        {% if profile and profile.email %}<span class="chip">{{ profile.email }}</span>{% endif %}
+                        {% if profile and profile.telepon %}<span class="chip">{{ profile.telepon }}</span>{% endif %}
+                        {% if profile and profile.semester %}<span class="chip">Semester {{ profile.semester }}</span>{% endif %}
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="section-head">
+                <div>
+                    <h3>Skills</h3>
+                    <p>Beberapa teknologi, bahasa pemrograman, dan tools yang saya gunakandalam proses belajar maupun pengembangan aplikasi.</p>
+                </div>
+            </div>
+
+            <div class="grid skills-grid">
+                {% for skill in skills %}
+                <article class="skill-card">
+                    <div class="skill-icon">
+                        {% if skill.icon %}
+                            <img src="{{ skill.icon }}"
+                                alt="{{ skill.nama_skill }}">
+                        {% else %}
+                            SK
+                        {% endif %}
+                    </div>
+                    <h4>{{ skill.nama_skill }}</h4>
+                </article>
+                {% else %}
+                <article class="skill-card">
+                    <h4>Belum ada skill</h4>
+                    <p class="muted">Data skill belum tersedia di database.</p>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="experience">
+            <div class="section-head">
+                <div>
+                    <h3>Experience</h3>
+                    <p>Pengalaman organisasi, kepanitiaan, maupun pekerjaan yang telah membentuk kemampuan saya dalam bekerja secara profesional dan kolaboratif.</p>
+                </div>
+            </div>
+
+            <div class="grid experience-grid">
+                {% for item in experiences %}
+                <article class="experience-card">
+                    <p class="muted">{{ item.periode }}</p>
+                    <h4>{{ item.jabatan }}</h4>
+                    <p class="muted"><strong>{{ item.perusahaan }}</strong></p>
+                    <p class="muted">{{ item.deskripsi }}</p>
+                </article>
+                {% else %}
+                <article class="experience-card">
+                    <h4>Belum ada experience</h4>
+                    <p class="muted">Data experience belum tersedia di database.</p>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="section-head">
+                <div>
+                    <h3>Projects</h3>
+                    <p>Beberapa proyek yang telah saya kerjakan sebagai media belajar, tugas perkuliahan, maupun pengembangan aplikasi nyata.</p>
+                </div>
+            </div>
+
+            <div class="grid projects-grid">
+                {% for project in projects %}
+                <article class="project-card">
+                    <div class="project-image">
+                        {% if project.gambar_url %}
+                            <img src="{{ project.gambar_url }}" alt="{{ project.judul }}">
+                        {% else %}
+                            <div style="width:100%;height:100%;display:grid;place-items:center;color:var(--muted);">No image</div>
+                        {% endif %}
+                    </div>
+                    <h4>{{ project.judul }}</h4>
+                    <p class="muted">{{ project.deskripsi }}</p>
+                    {% if project.tags %}
+                    <div class="chips">
+                        {% for tag in project.tags.split(',') %}
+                        <span class="chip">{{ tag.strip() }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </article>
+                {% else %}
+                <article class="project-card">
+                    <h4>Belum ada project</h4>
+                    <p class="muted">Data project belum tersedia di database.</p>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        <section id="contact" class="contact">
+
+    <div class="section-head contact-title">
+    <div>
+        <h2>Hubungi Saya</h2>
+        <p>
+            Tertarik untuk berkolaborasi atau punya pertanyaan?
+            Jangan ragu untuk mengirim pesan.
+        </p>
+    </div>
+</div>
+
+                <div class="contact-container">
+                    <form class="contact-form" method="POST" action="/contact">
+
+                        <input
+                            type="text"
+                            name="nama"
+                            placeholder="Nama Anda"
+                            required
+                        >
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email Anda"
+                            required
+                        >
+
+                        <input
+                            type="text"
+                            name="subject"
+                            placeholder="Subjek"
+                            required
+                        >
+
+                        <textarea
+                            name="pesan"
+                            rows="6"
+                            placeholder="Pesan Anda"
+                            required
+                        ></textarea>
+
+                        <button type="submit" class="button-primary">
+                            Kirim Pesan
+                        </button>
+
+                    </form>
+
+            </div>
+
+        </section>
+        <section class="social-section">
+
+            <h2>Terhubung dengan Saya</h2>
+
+            <p>Mari terhubung dan berkolaborasi bersama saya.</p>
+
+            <div class="social-icons">
+
+                <a href="https://www.linkedin.com/in/nico-saputra-nainggolan-290b37226" target="_blank">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+
+                <a href="https://www.instagram.com/niconainggolan_16?igsh=MWp5MjgyemFhNm84Yg==" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="https://github.com/Nainggolan16" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+
+            </div>
+
+        </section>
+        <footer class="footer">
+            <hr>
+            <p>
+                © 2026 Nico Saputra Nainggolan. All Rights Reserved.
+            </p>
+        </footer>
+    </main>
+</body>
+</html>

@@ -1,0 +1,233 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}
+Akun Admin
+{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div class="account-page">
+
+    <section class="account-section">
+
+        <h3 class="account-section-title">Data Diri</h3>
+
+        <form method="POST" enctype="multipart/form-data" class="account-form">
+
+            <input type="hidden" name="action" value="update_profile">
+
+            <div class="profile-grid">
+
+                <div class="field">
+                    <label>Nama Lengkap</label>
+                    <input type="text" name="nama_lengkap" value="{{ user.nama_lengkap or '' }}" required>
+                </div>
+
+                <div class="field">
+                    <label>Nama Panggilan</label>
+                    <input type="text" name="nama_panggilan" value="{{ user.nama_panggilan or '' }}" required>
+                </div>
+
+                <div class="field">
+                    <label>Tempat Lahir</label>
+                    <input type="text" name="tempat_lahir" value="{{ user.tempat_lahir or '' }}" required>
+                </div>
+
+                <div class="field">
+                    <label>Tanggal Lahir</label>
+                    <input type="date" name="tanggal_lahir" value="{{ user.tanggal_lahir or '' }}" required>
+                </div>
+
+                <div class="field">
+                    <label>Email</label>
+                    <input type="email" name="email" value="{{ user.email or '' }}" required>
+                </div>
+
+                <div class="field">
+                    <label>Telepon</label>
+                    <input type="text" name="telepon" value="{{ user.telepon or '' }}">
+                </div>
+
+                <div class="field">
+                    <label>Universitas</label>
+                    <input type="text" name="universitas" value="{{ user.universitas or '' }}">
+                </div>
+
+                <div class="field">
+                    <label>Fakultas</label>
+                    <input type="text" name="fakultas" value="{{ user.fakultas or '' }}">
+                </div>
+
+                <div class="field">
+                    <label>Program Studi</label>
+                    <input type="text" name="program_studi" value="{{ user.program_studi or '' }}">
+                </div>
+
+                <div class="field">
+                    <label>Semester</label>
+                    <input type="number" name="semester" value="{{ user.semester or '' }}">
+                </div>
+
+            </div>
+
+            <div class="field">
+                <label>Alamat</label>
+                <textarea name="alamat" rows="4">{{ user.alamat or '' }}</textarea>
+            </div>
+
+            <div class="field">
+
+    <label>Foto Profil</label>
+
+    {% if user.foto_profil %}
+        <div style="margin-bottom:15px;">
+				<img
+					src="{{ user.foto_profil }}"
+					width="120"
+					height="120"
+					style="
+						border-radius:50%;
+						object-fit:cover;
+						border:3px solid #ddd;
+					"
+				>
+			</div>
+		{% endif %}
+
+		<input
+			type="file"
+			name="foto_profil"
+			accept="image/*"
+		>
+
+		<small>
+			Kosongkan jika tidak ingin mengganti foto.
+		</small>
+
+	</div>
+
+            <div class="form-actions">
+                <button type="submit">Simpan Data</button>
+            </div>
+
+        </form>
+
+    </section>
+
+    <section class="account-section">
+
+        <h3 class="account-section-title">Ubah Password</h3>
+
+        <form method="POST"
+			class="account-form">
+
+            <input type="hidden" name="action" value="update_password">
+
+            <div class="field">
+                <label>Password Lama</label>
+                <input type="password" name="password_lama" required>
+            </div>
+
+            <div class="field">
+                <label>Password Baru</label>
+                <input type="password" name="password_baru" required>
+            </div>
+
+            <div class="field">
+                <label>Konfirmasi Password</label>
+                <input type="password" name="konfirmasi_password" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit">Ubah Password</button>
+            </div>
+
+        </form>
+
+    </section>
+
+    <section class="account-section">
+
+        <h3 class="account-section-title">Preview Data</h3>
+
+        <div class="profile-preview">
+
+            {% if user.foto_profil %}
+                <img src="{{ user.foto_profil }}" alt="Foto Profil" class="profile-photo">
+            {% else %}
+                <div class="profile-photo-placeholder">
+                    {{ (user.nama_panggilan or user.nama_lengkap or '?')[0] | upper }}
+                </div>
+            {% endif %}
+
+            <div class="profile-info-list">
+
+                <div class="profile-info-row">
+                    <span class="profile-info-row__label">Nama Lengkap</span>
+                    <span class="profile-info-row__value">{{ user.nama_lengkap }}</span>
+                </div>
+
+                <div class="profile-info-row">
+                    <span class="profile-info-row__label">Nama Panggilan</span>
+                    <span class="profile-info-row__value">{{ user.nama_panggilan }}</span>
+                </div>
+
+                <div class="profile-info-row">
+                    <span class="profile-info-row__label">Tempat, Tanggal Lahir</span>
+                    <span class="profile-info-row__value">{{ user.tempat_lahir }}, {{ user.tanggal_lahir }}</span>
+                </div>
+
+                <div class="profile-info-row">
+                    <span class="profile-info-row__label">Email</span>
+                    <span class="profile-info-row__value">{{ user.email }}</span>
+                </div>
+
+                <div class="profile-info-row">
+                    <span class="profile-info-row__label">Telepon</span>
+                    <span class="profile-info-row__value">{{ user.telepon }}</span>
+                </div>
+
+                <div class="profile-info-row">
+                    <span class="profile-info-row__label">Universitas</span>
+                    <span class="profile-info-row__value">{{ user.universitas }}</span>
+                </div>
+
+                <div class="profile-info-row">
+                    <span class="profile-info-row__label">Fakultas</span>
+                    <span class="profile-info-row__value">{{ user.fakultas }}</span>
+                </div>
+
+                <div class="profile-info-row">
+                    <span class="profile-info-row__label">Program Studi</span>
+                    <span class="profile-info-row__value">{{ user.program_studi }}</span>
+                </div>
+
+                <div class="profile-info-row">
+                    <span class="profile-info-row__label">Semester</span>
+                    <span class="profile-info-row__value">{{ user.semester }}</span>
+                </div>
+
+                <div class="profile-info-row">
+                    <span class="profile-info-row__label">Alamat</span>
+                    <span class="profile-info-row__value">{{ user.alamat }}</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

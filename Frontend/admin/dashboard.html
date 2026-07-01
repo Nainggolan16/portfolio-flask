@@ -1,0 +1,53 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<section class="welcome-panel">
+	<div>
+		<p class="eyebrow">Welcome back</p>
+		<h2>Halo, {{ username }}</h2>
+	</div>
+
+	<div class="welcome-badge">
+		<span>Admin Active</span>
+		<strong>{{ username }}</strong>
+	</div>
+</section>
+
+<section class="stats-grid" aria-label="Statistik ringkas">
+	<article class="stat-card" data-dashboard-count="/skills">
+		<span class="stat-label">Total Skills</span>
+		<strong class="stat-value" data-count-value>0</strong>
+		<p>Data skill yang sudah tersimpan.</p>
+	</article>
+
+	<article class="stat-card" data-dashboard-count="/experience">
+		<span class="stat-label">Total Experience</span>
+		<strong class="stat-value" data-count-value>0</strong>
+		<p>Riwayat experience yang tersedia.</p>
+	</article>
+
+	<article class="stat-card" data-dashboard-count="/projects">
+		<span class="stat-label">Total Projects</span>
+		<strong class="stat-value" data-count-value>0</strong>
+		<p>Project portfolio yang dipublikasikan.</p>
+	</article>
+</section>
+
+<section class="quick-panel">
+	<div class="quick-panel-head">
+		<h3>Akses Cepat</h3>
+		<p>Gunakan menu sidebar untuk berpindah ke halaman pengelolaan data.</p>
+	</div>
+
+	<div class="quick-links">
+		<a href="/skills" class="quick-link">Kelola Skills</a>
+		<a href="/experience" class="quick-link">Kelola Experience</a>
+		<a href="/projects" class="quick-link">Kelola Projects</a>
+		<a href="/akun" class="quick-link">Edit Akun</a>
+	</div>
+</section>
+{% endblock %}

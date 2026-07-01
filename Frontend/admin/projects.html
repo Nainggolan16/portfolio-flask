@@ -1,0 +1,207 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}
+Projects
+{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<section class="form-section">
+
+    {% if project %}
+    <form
+        method="POST"
+        action="/projects/edit/{{ project.id }}"
+        enctype="multipart/form-data"
+        class="form-card"
+    >
+    {% else %}
+    <form
+        method="POST"
+        action="/projects"
+        enctype="multipart/form-data"
+        class="form-card"
+    >
+    {% endif %}
+
+        <label>Judul Project</label>
+        <input
+            type="text"
+            name="judul"
+            value="{{ project.judul if project else '' }}"
+            required
+        >
+
+        <label>Deskripsi</label>
+        <textarea
+            name="deskripsi"
+            rows="5"
+            required
+        >{{ project.deskripsi if project else '' }}</textarea>
+
+        <label>Tags</label>
+        <input
+            type="text"
+            name="tags"
+            value="{{ project.tags if project else '' }}"
+            placeholder="Flask, Python, TiDB"
+            required
+        >
+
+        <label>Thumbnail Project</label>
+
+        {% if project and project.gambar_url %}
+            <div style="margin-bottom:15px;">
+                <img
+                    src="{{ project.gambar_url }}"
+                    style="
+                        width:220px;
+                        border-radius:12px;
+                        border:1px solid #ddd;
+                    "
+                >
+            </div>
+        {% endif %}
+
+        <input
+            type="file"
+            name="gambar"
+            accept="image/*"
+        >
+
+        <br>
+
+        <button type="submit">
+
+            {% if project %}
+                Update Project
+            {% else %}
+                Simpan Project
+            {% endif %}
+
+        </button>
+
+        {% if project %}
+            <a href="/projects" class="btn-cancel">
+                Batal
+            </a>
+        {% endif %}
+
+    </form>
+
+</section>
+
+<hr>
+
+<section>
+
+    <h3>Daftar Project</h3>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Thumbnail</th>
+
+                <th>Judul</th>
+
+                <th>Tags</th>
+
+                <th>Deskripsi</th>
+
+                <th>Aksi</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for item in projects %}
+
+            <tr>
+
+                <td>{{ item.id }}</td>
+
+                <td>
+
+                    {% if item.gambar_url %}
+
+                        <img
+                            src="{{ item.gambar_url }}"
+                            style="
+                                width:90px;
+                                height:60px;
+                                object-fit:cover;
+                                border-radius:8px;
+                            "
+                        >
+
+                    {% else %}
+
+                        -
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    <strong>{{ item.judul }}</strong>
+
+                </td>
+
+                <td>
+
+                    {{ item.tags }}
+
+                </td>
+
+                <td>
+
+                    {{ item.deskripsi }}
+
+                </td>
+
+                <td>
+
+                    <a href="/projects/edit/{{ item.id }}">
+                        ✏ Edit
+                    </a>
+
+                    |
+
+                    <a
+                        href="/projects/delete/{{ item.id }}"
+                        onclick="return confirm('Yakin ingin menghapus project ini?')"
+                    >
+                        🗑 Hapus
+                    </a>
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</section>
+
+{% endblock %}

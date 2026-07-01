@@ -1,0 +1,139 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}Skills{% endblock %}
+{% block page_title %}Skills{% endblock %}
+
+{% block content %}
+
+<section class="form-section">
+
+    {% if skill %}
+    <form method="POST"
+          action="/skills/edit/{{ skill.id }}"
+          enctype="multipart/form-data"
+          class="form-card">
+    {% else %}
+    <form method="POST"
+          action="/skills"
+          enctype="multipart/form-data"
+          class="form-card">
+    {% endif %}
+
+        <h3 style="margin-bottom:25px;">
+            {% if skill %}
+                Edit Skill
+            {% else %}
+                Tambah Skill
+            {% endif %}
+        </h3>
+
+        <label>Nama Skill</label>
+
+        <input
+            type="text"
+            name="nama_skill"
+            value="{{ skill.nama_skill if skill else '' }}"
+            placeholder="Contoh : Python"
+            required
+        >
+
+        <label>Icon Skill</label>
+
+        <input
+            type="file"
+            name="icon"
+            accept="image/*"
+        >
+
+        {% if skill and skill.icon %}
+        <div style="margin-top:15px;margin-bottom:20px;">
+            <p style="margin-bottom:10px;">Icon Saat Ini</p>
+
+            <img
+                src="{{ skill.icon }}"
+                style="
+                    width:70px;
+                    height:70px;
+                    object-fit:contain;
+                    border-radius:12px;
+                    border:1px solid #ddd;
+                    padding:8px;
+                    background:white;
+                "
+            >
+        </div>
+        {% endif %}
+
+        <button type="submit">
+
+            {% if skill %}
+                Update Skill
+            {% else %}
+                Simpan Skill
+            {% endif %}
+
+        </button>
+
+        {% if skill %}
+            <a href="/skills" class="btn-cancel">
+                Batal
+            </a>
+        {% endif %}
+
+    </form>
+
+</section>
+
+
+
+<section class="form-section">
+
+    <div class="section-head-inline">
+        <h3>Daftar Skill</h3>
+    </div>
+
+    <div class="skills-grid">
+
+    {% for item in skills %}
+
+    <div class="skill-card">
+
+        {% if item.icon %}
+        <img
+            src="{{ item.icon }}"
+            class="skill-image"
+        >
+        {% endif %}
+
+        <h3>{{ item.nama_skill }}</h3>
+
+        <div class="skill-action">
+
+            <a
+                href="/skills/edit/{{ item.id }}"
+                class="btn-edit"
+            >
+                Edit
+            </a>
+
+            <a
+                href="/skills/delete/{{ item.id }}"
+                class="btn-delete"
+                onclick="return confirm('Hapus skill ini?')"
+            >
+                Hapus
+            </a>
+        </div>
+    </div>
+
+        {% else %}
+
+        <p>Belum ada data skill.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

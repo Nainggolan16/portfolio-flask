@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Panel{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/admin.css') }}">
+    <script defer src="{{ url_for('static', filename='admin/admin.js') }}"></script>
+</head>
+
+<body class="admin-panel">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <span class="brand-mark">N</span>
+
+            <div>
+                <strong>NICO</strong>
+                <span>Admin Panel</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="/dashboard">Dashboard</a>
+
+            <a href="/akun">Akun</a>
+
+            <a href="/skills">Skills</a>
+
+            <a href="/experience">Experience</a>
+
+            <a href="/projects">Projects</a>
+
+            <a href="/logout">Logout</a>
+
+        </nav>
+
+    </aside>
+
+    <div class="content">
+
+        <header class="page-header">
+
+            <div>
+
+                <p class="eyebrow">
+                    Admin Area
+                </p>
+
+                <h1 class="page-title">
+                    {{ self.title() }}
+                </h1>
+
+            </div>
+
+            <div class="header-meta">
+
+                <span class="header-badge">
+                    {{ session.get('username', 'Admin') }}
+                </span>
+
+            </div>
+
+        </header>
+
+        <main class="card page-card">
+
+            {% block content %}
+            {% endblock %}
+
+        </main>
+
+    </div>
+
+</body>
+</html>

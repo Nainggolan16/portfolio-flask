@@ -1,0 +1,117 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}
+Experience
+{% endblock %}
+
+{% block content %}
+
+<section class="form-section">
+
+    {% if experience %}
+    <form method="POST" action="/experience/edit/{{ experience.id }}" class="form-card">
+    {% else %}
+    <form method="POST" action="/experience" class="form-card">
+    {% endif %}
+
+        <label>Periode</label>
+        <input
+            type="text"
+            name="periode"
+            value="{{ experience.periode if experience else '' }}"
+            required
+        >
+
+        <label>Jabatan</label>
+        <input
+            type="text"
+            name="jabatan"
+            value="{{ experience.jabatan if experience else '' }}"
+            required
+        >
+
+        <label>Perusahaan</label>
+        <input
+            type="text"
+            name="perusahaan"
+            value="{{ experience.perusahaan if experience else '' }}"
+            required
+        >
+
+        <label>Deskripsi</label>
+        <textarea
+            name="deskripsi"
+            rows="4"
+            required
+        >{{ experience.deskripsi if experience else '' }}</textarea>
+
+        <button type="submit">
+            {% if experience %}
+                Update
+            {% else %}
+                Simpan
+            {% endif %}
+        </button>
+
+        {% if experience %}
+        <a href="/experience">Batal</a>
+        {% endif %}
+
+    </form>
+
+</section>
+
+<section>
+
+    <h3>Daftar Experience</h3>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Periode</th>
+                <th>Jabatan</th>
+                <th>Perusahaan</th>
+                <th>Deskripsi</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for item in experiences %}
+
+            <tr>
+
+                <td>{{ item.id }}</td>
+                <td>{{ item.periode }}</td>
+                <td>{{ item.jabatan }}</td>
+                <td>{{ item.perusahaan }}</td>
+                <td>{{ item.deskripsi }}</td>
+
+                <td>
+
+                    <a href="/experience/edit/{{ item.id }}">
+                        Edit
+                    </a>
+
+                    |
+
+                    <a href="/experience/delete/{{ item.id }}">
+                        Hapus
+                    </a>
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</section>
+
+{% endblock %}
